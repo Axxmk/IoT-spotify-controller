@@ -1,0 +1,24 @@
+{
+    "name": "spotify-controller",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "dev": "sudo node src/app.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^16.0.0",
+        "express": "^4.17.2",
+        "hc-sr04-pi": "^0.0.6",
+        "nanoid": "^3.2.0",
+        "node-cron": "^3.0.0",
+        "pigpio": "^3.3.1",
+        "qs": "^6.10.3",
+        "spotify-web-api-node": "^5.0.2"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.15"
+    }
+}

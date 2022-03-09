@@ -1,0 +1,9 @@
+# Dependency directories
+node_modules/
+
+# dotenv environment variables and secret file
+.env
+.code
+
+# OS generated files
+.DS_Store
