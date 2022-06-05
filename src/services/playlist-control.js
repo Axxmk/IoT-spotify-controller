@@ -1,7 +1,7 @@
 const { spotifyApi } = require("../routers/authorize-router.js");
 const getActiveDevice = require("./get-active-device.js");
 
-const DAY_PLAYLIST_ID = "37i9dQZF1EQncLwOalG3K7";
+const DAY_PLAYLIST_ID = "6Bdg8UMO0uGSdN7OTDjqeH";
 const NIGHT_PLAYLIST_ID = "0RMuRvxR1ABVF5HGSogGj0";
 
 const playNightPlaylist = async () => {
