@@ -1,7 +1,7 @@
 /* libraries */
 const express = require("express");
-const pigpio = require("pigpio");
 const ads1x15 = require("ads1x15");
+const Gpio = require("pigpio").Gpio;
 const RPiGPIOButtons = require("rpi-gpio-buttons");
 const { default: DistanceMeter } = require("hc-sr04-pi");
 
@@ -39,6 +39,8 @@ cronSchedule("*/45 * * * *", refreshToken, "optaining access_token...");
 (async () => {
     const distanceMeter = new DistanceMeter(23, 24);
 
+    const servo = new Gpio(25, { mode: Gpio.OUTPUT });
+
     const adc = new ads1x15(0x01);
     await adc.openBus(1); // open i2c bus. 0 for /dev/i2c-0 and 1 for /dev/i2c-1
 
@@ -53,10 +55,12 @@ cronSchedule("*/45 * * * *", refreshToken, "optaining access_token...");
             switch (pin) {
                 case NIGHT:
                     playNightPlaylist();
+                    servo.servoWrite(1000);
                     break;
 
                 case DAY:
                     playDayPlaylist();
+                    servo.servoWrite(2000);
                     break;
             }
         })

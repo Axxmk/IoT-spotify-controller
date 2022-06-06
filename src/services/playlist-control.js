@@ -6,37 +6,28 @@ const NIGHT_PLAYLIST_ID = "0RMuRvxR1ABVF5HGSogGj0";
 
 const playNightPlaylist = async () => {
     await getActiveDevice();
-
-    try {
-        let { body: playlist } = await spotifyApi.getPlaylist(
-            NIGHT_PLAYLIST_ID
-        );
-        await _playRandomSongInPlaylist(playlist);
-    } catch (err) {
-        console.error("Something went wrong:", err.message);
-    }
+    return _playRandomSongInPlaylist(NIGHT_PLAYLIST_ID);
 };
 
 const playDayPlaylist = async () => {
     await getActiveDevice();
+    return _playRandomSongInPlaylist(DAY_PLAYLIST_ID);
+};
 
+const _playRandomSongInPlaylist = async (playlistId) => {
     try {
-        let { body: playlist } = await spotifyApi.getPlaylist(DAY_PLAYLIST_ID);
-        await _playRandomSongInPlaylist(playlist);
+        let { body: playlist } = await spotifyApi.getPlaylist(playlistId);
+        await spotifyApi.play({
+            context_uri: playlist.uri,
+            offset: {
+                position: Math.floor(Math.random() * playlist.tracks.total),
+            },
+        });
+        await spotifyApi.setShuffle(true);
+        console.log(`Playing ${playlist.name} playlist`);
     } catch (err) {
         console.error("Something went wrong:", err.message);
     }
-};
-
-const _playRandomSongInPlaylist = async (playlist) => {
-    await spotifyApi.play({
-        context_uri: playlist.uri,
-        offset: {
-            position: Math.floor(Math.random() * playlist.tracks.total),
-        },
-    });
-    await spotifyApi.setShuffle(true);
-    console.log(`Playing ${playlist.name} playlist`);
 };
 
 module.exports = { playNightPlaylist, playDayPlaylist };
